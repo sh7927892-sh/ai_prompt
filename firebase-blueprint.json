@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "Prompt": {
+      "title": "Prompt",
+      "description": "An AI prompt entry with title, category, full multi-line content, and creation timestamp.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Prompt title (up to 100 characters)"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "사진 합성",
+            "스타일 변환",
+            "캐릭터·포스터"
+          ],
+          "description": "Prompt category"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000,
+          "description": "Full prompt text (up to 10,000 characters, preserving line breaks)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation"
+        }
+      },
+      "required": [
+        "title",
+        "category",
+        "content",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/prompts/{promptId}": {
+      "schema": {
+        "$ref": "#/entities/Prompt"
+      },
+      "description": "Publicly readable prompts collection; writes restricted strictly to verified admin."
+    }
+  }
+}
